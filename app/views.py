@@ -24,7 +24,7 @@ def signin(request):
                 login(request, user)
                 return redirect('home')
         else:
-            print("helooooooo")
+            print("helooooooooooo")
         form = LoginForm()
     return render(request, 'app/signin.html', {'form': form})
 
