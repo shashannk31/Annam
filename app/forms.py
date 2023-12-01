@@ -24,11 +24,11 @@ class CustomUserCreationForm(UserCreationForm):
         ('Gujarat', 'Gujarat'),
         ('Haryana', 'Haryana'),
         ('Himachal Pradesh', 'Himachal Pradesh'),
-        ('Jammu & Kashmir', 'Jammu & Kashmir')
+        ('Jammu & Kashmir', 'Jammu & Kashmir'),
         ('Jharkhand', 'Jharkhand'),
         ('Karnataka', 'Karnataka'),
         ('Kerala', 'Kerala'),
-        ('Ladakh', 'Ladakh')
+        ('Ladakh', 'Ladakh'),
         ('Lakshadweep', 'Lakshadweep'),
         ('Madhya Pradesh', 'Madhya Pradesh'),
         ('Maharashtra', 'Maharashtra'),
@@ -49,6 +49,13 @@ class CustomUserCreationForm(UserCreationForm):
         ('West Bengal', 'West Bengal'),
     ]
     state = forms.ChoiceField(choices=STATES_CHOICES, widget=forms.Select)
+
+    organization_type_choices = [
+      ('Restaurant', 'Restaurant'),
+      ('Orphanage', 'Orphanage'),
+      ('Old Age Home', 'Old Age Home'),
+    ]
+    organization_type = forms.ChoiceField(choices=organization_type_choices, widget=forms.Select)
 
     class Meta:
         model = CustomUser

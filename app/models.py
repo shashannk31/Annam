@@ -7,7 +7,7 @@ class CustomUser(AbstractUser):
     organization_type = models.CharField(max_length=255)
     organization_name = models.CharField(max_length=255)
     cuisine_type = models.CharField(max_length=20)
-    phone = models.CharField(max_length=15)
+    phone = models.CharField(max_length=15, unique=True)
     city = models.CharField(max_length=255)
     state = models.CharField(max_length=255)
     address = models.TextField()
