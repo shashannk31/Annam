@@ -3,8 +3,10 @@ from django.db import models
 
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
+    password = models.CharField(max_length=128)
     organization_type = models.CharField(max_length=255)
     organization_name = models.CharField(max_length=255)
+    cuisine_type = models.CharField(max_length=20)
     phone = models.CharField(max_length=15)
     city = models.CharField(max_length=255)
     state = models.CharField(max_length=255)

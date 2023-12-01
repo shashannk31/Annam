@@ -22,9 +22,10 @@ from django.conf.urls.static import static
 app_name = 'app'
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
-    path('', views.home, name="home"),
+    path('home/', views.home, name="home"),
     path('register/', views.register, name='register'),
-    path('signin/', views.signin, name="signin"),
+    path('', views.signin, name="signin"),
+    path('logout/', views.logoutview, name="logout"),
 
 ]
 

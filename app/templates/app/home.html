@@ -1,1 +1,23 @@
-hellooo
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+</head>
+<body>
+
+{% if username %}
+    <h2>Welcome to the Home Page</h2>
+    <p>Hello, {{ username }}!</p>
+{% endif %}
+
+{% if username %}
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+{% else %}
+    <h2>You do not have an account registered with us!</h2>
+    <p><a href="{% url 'register' %}">Register here</a></p>
+{% endif %}
+</body>
+</html>

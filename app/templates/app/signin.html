@@ -1,6 +1,33 @@
-  <h2>Sign In</h2>
-  <form method="post">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <h2>Login</h2>
+
+  <form method="post" action="{% url 'signin' %}">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign In</button>
+    {{ form.email.label_tag }}
+    {{ form.email }}
+    <br>
+    {{ form.password.label_tag }}
+    {{ form.password }}
+    <br>
+
+    <button type="submit">Login</button>
+    <p>Do not have an account with us? <a href="{% url 'register' %}">Register here</a></p>
   </form>
+</body>
+</html>
