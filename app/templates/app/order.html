@@ -1,0 +1,217 @@
+<form method="post" action="{% url 'charityhome' %}">
+    {% csrf_token %}
+    <button type="submit">Go Back</button>
+</form>
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+<h2>Welcome to food ordering page!</h2>
+
+<!-- templates/order.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Food Items</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .food-item {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .food-item:hover {
+            transform: scale(1.05);
+        }
+
+        .food-item h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .food-item p {
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .enlarged {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            z-index: 2;
+            overflow-y: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease-in-out;
+            backdrop-filter: blur(2px);
+        }
+
+        .enlarged .food-item {
+            width: 80%;
+            max-width: 800px;
+            transform: scale(1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: default;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .enlarged .food-item:hover {
+            transform: scale(1);
+        }
+
+        .order-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 36px;
+            cursor: pointer;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h2>Live Food Items</h2>
+    {% if messages %}
+        {% for message in messages %}
+          <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    {% if live_food_items %}
+      {% for food_item in live_food_items %}
+         <form class="" action="{% url 'orderfood' %}" method="post">
+           {% csrf_token %}
+           <div class="food-item" onclick="enlargeFoodItem(this)">
+               {% csrf_token %}
+               <input type="hidden" name="id" value="{{ food_item.id }}">
+
+               <h2>{{ food_item.name_of_food }}</h2>
+               <input type="hidden" name="name_of_food" value="{{ food_item.name_of_food }}">
+
+               <p><strong>Restaurant Name:</strong> {{ food_item.organization_name }}</p>
+               <input type="hidden" name="organization_name" value="{{ food_item.organization_name }}">
+
+               <p><strong>Restaurant's Cuisine:</strong> {{ food_item.cuisine_type }}</p>
+               <input type="hidden" name="cuisine_type" value="{{ food_item.cuisine_type }}">
+
+               <p><strong>Approx. Quantity Serves:</strong> {{ food_item.quantity_serves }}</p>
+               <input type="hidden" name="quantity_serves" value="{{ food_item.quantity_serves }}">
+
+               <p><strong>Preparation Time:</strong> {{ food_item.time_of_preparation|date:"F j, Y H:i" }}</p>
+               <input type="hidden" name="time_of_preparation" value="{{ food_item.time_of_preparation }}">
+
+               <p><strong>Tentative Collection Time:</strong> {{ food_item.tentative_collection_time|date:"F j, Y H:i" }}</p>
+               <input type="hidden" name="tentative_collection_time" value="{{ food_item.tentative_collection_time }}">
+
+               <p><strong>Restaurant Phone:</strong> {{ food_item.restaurant_phone }}</p>
+               <input type="hidden" name="restaurant_phone" value="{{ food_item.restaurant_phone }}">
+
+               <p><strong>Restaurant Address:</strong> {{ food_item.restaurant_address }}</p>
+               <input type="hidden" name="restaurant_address" value="{{ food_item.restaurant_address }}">
+
+               <p><strong>Food Cuisine:</strong> {{ food_item.food_cuisine }}</p>
+               <input type="hidden" name="food_cuisine" value="{{ food_item.food_cuisine }}">
+
+               <p><strong>Packing Present:</strong> {{ food_item.packing_present }}</p>
+               <input type="hidden" name="packing_present" value="{{ food_item.packing_present }}">
+
+               <button type="submit" class="order-button">Order Food</button>
+           </div>
+         </form>
+         
+      {% endfor %}
+    {% else %}
+      <div>No food items currently available! Kindly check later</div>
+    {% endif %}
+
+    <script>
+        function enlargeFoodItem(element) {
+            // Create a new div for the enlarged view
+            const enlargedDiv = document.createElement('div');
+            enlargedDiv.classList.add('enlarged');
+
+            // Clone the clicked food item and append it to the enlarged view
+            const clonedItem = element.cloneNode(true);
+
+            // Remove the "Order Food" button from the cloned item
+            const orderButton = clonedItem.querySelector('.order-button');
+            if (orderButton) {
+                orderButton.remove();
+            }
+
+            clonedItem.classList.add('enlarged-item');
+            enlargedDiv.appendChild(clonedItem);
+
+            // Create a close button and append it to the enlarged view
+            const closeButton = document.createElement('span');
+            closeButton.innerHTML = '&times;'; // '×' for the close symbol
+            closeButton.classList.add('close-button');
+            closeButton.addEventListener('click', function () {
+                enlargedDiv.remove();
+            });
+            enlargedDiv.appendChild(closeButton);
+
+            // Append the enlarged view to the body
+            document.body.appendChild(enlargedDiv);
+
+            // Add a click event listener to close the enlarged view when clicking outside of the box
+            enlargedDiv.addEventListener('click', function (event) {
+                if (event.target === enlargedDiv) {
+                    enlargedDiv.remove();
+                }
+            });
+        }
+
+        function confirmOrder(foodItemId) {
+            // Show a confirmation dialog
+            var result = confirm("Are you sure you want to order this food item?");
+            if (result) {
+                // If the user clicks 'Yes', submit the form
+                document.getElementById('order-form-' + foodItemId).submit();
+            }
+        }
+    </script>
+
+</body>
+</html>

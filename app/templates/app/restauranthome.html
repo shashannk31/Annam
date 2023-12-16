@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home Page</title>
+    <title>Restaurant Home Page</title>
 </head>
 <body>
 
 {% if username %}
-    <h2>Welcome to the Home Page</h2>
+    <h2>Welcome to the Restaurant Home Page</h2>
     <p>Hello, {{ username }}!</p>
 {% endif %}
 
 {% if username %}
+    <form method="post" action="{% url 'donate' %}">
+        {% csrf_token %}
+        <button type="submit">Donate Food</button>
+    </form>
     <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit">Logout</button>

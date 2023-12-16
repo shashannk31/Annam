@@ -22,10 +22,21 @@ from django.conf.urls.static import static
 app_name = 'app'
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
-    path('home/', views.home, name="home"),
-    path('register/', views.register, name='register'),
+
+    #authentication
     path('', views.signin, name="signin"),
+    path('register/', views.register, name='register'),
     path('logout/', views.logoutview, name="logout"),
+
+    #restaurant
+    path('restaurant/home/', views.restauranthome, name="restauranthome"),
+    path('restaurant/donate/', views.donate, name="donate"),
+    path('restaurant/donatefood/', views.donatefood, name="donatefood"),
+
+    #charity
+    path('charity/home/', views.charityhome, name="charityhome"),
+    path('charity/order/', views.order, name="order"),
+    path('charity/orderfood/', views.orderfood, name="orderfood"),
 ]
 
 if settings.DEBUG:
