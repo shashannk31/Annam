@@ -25,6 +25,7 @@ class FoodOrder(models.Model):
     city = models.CharField(max_length=255)
     state = models.CharField(max_length=255)
     restaurant_address = models.TextField()
+    charity_name = models.CharField(max_length=255, default="Nil")
     delivery_address = models.TextField()
     charity_phone = models.CharField(max_length=15)
     time_of_preparation = models.DateTimeField()
@@ -36,3 +37,10 @@ class FoodOrder(models.Model):
     packing_present = models.CharField(max_length=3)
     is_live = models.BooleanField(default=False)
     collected_time = models.DateTimeField(null=True, blank=True)
+    restaurant_inbox = models.BooleanField(default=False) #to be displayed in restaurant inbox
+    charity_inbox = models.BooleanField(default=False) #to be displayed in charity inbox
+    display_status = models.BooleanField(default=False) #to be displayed on contributions/order history
+    accept_reject_status = models.BooleanField(default=True) #for making the accept/reject button vanish after clicking
+    order_timestamp = models.DateTimeField(auto_now_add=True) #time when order was placed
+    restaurant_order_status = models.CharField(max_length=20, default="Nil")
+    #restaurant_notification = models.BooleanField(default=True)

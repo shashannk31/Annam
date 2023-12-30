@@ -1,0 +1,52 @@
+<form method="post" action="{% url 'restauranthome' %}">
+    {% csrf_token %}
+    <button type="submit">Go Back</button>
+</form>
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+
+<style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 10px;
+    }
+    .order-box {
+        text-align: center;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 20px;
+        width: 300px;
+    }
+</style>
+
+<body>
+{% if username %}
+  {% if my_contributions %}
+    {% for contribution in my_contributions %}
+        {% if contribution.display_status %}
+            <div class="order-box">
+                <p><strong>Charity Name:</strong> {{ contribution.charity_name }}</p>
+                <p><strong>Charity Phone:</strong> {{ contribution.charity_phone }}</p>
+                <p><strong>Charity Address:</strong> {{ contribution.delivery_address }}</p>
+                <p><strong>Name of food:</strong> {{ contribution.name_of_food }}</p>
+                <p><strong>Food Cuisine:</strong> {{ contribution.food_cuisine }}</p>
+                <p><strong>Quantity Serves:</strong> {{ contribution.quantity_serves }}</p>
+                <p><strong>Packing Present:</strong> {{ contribution.packing_present }}</p>
+                <p><strong>Time of Preparation:</strong> {{ contribution.time_of_preparation }}</p>
+                <p><strong>Collected Time:</strong> {{ contribution.collected_time }}</p>
+            </div>
+        {% endif %}
+    {% endfor %}
+  {% else %}
+    <p>No contributions in history</p>
+  {% endif %}
+  {% else %}
+      <h2>You do not have an account registered with us!</h2>
+      <p><a href="{% url 'register' %}">Register here</a></p>
+  {% endif %}
+</body>

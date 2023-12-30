@@ -13,7 +13,7 @@ class FoodOrderAdmin(admin.ModelAdmin):
     'city', 'state', 'restaurant_address', 'delivery_address', 'charity_phone',
     'time_of_preparation', 'name_of_food', 'food_cuisine', 'quantity_serves',
     'storage_duration', 'tentative_collection_time', 'packing_present', 'is_live',
-    'collected_time')
+    'collected_time', 'restaurant_inbox', 'charity_inbox', 'display_status')
     search_fields = ('organization_name', 'cuisine_type', 'city', 'state')
     list_filter = ('is_live', 'collected_time')
 

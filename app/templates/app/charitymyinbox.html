@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .message-box {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .accepted {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .rejected {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        h2, p {
+            color: #333;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    {% if username %}
+        {% if my_inbox %}
+            {% for message in my_inbox %}
+                {% if message.charity_inbox %}
+                    {% if message.restaurant_order_status == "Accepted" %}
+                        <div class="message-box accepted">
+                            {{ message.organization_name }} has accepted the order!
+                        </div>
+                    {% endif %}
+                    {% if message.restaurant_order_status == "Rejected" %}
+                        <div class="message-box rejected">
+                            {{ message.organization_name }} has rejected the order!
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>You have no messages in your inbox!</p>
+        {% endif %}
+    {% else %}
+        <h2>You do not have an account registered with us!</h2>
+        <p><a href="{% url 'register' %}">Register here</a></p>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

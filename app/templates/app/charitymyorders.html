@@ -1,0 +1,52 @@
+<form method="post" action="{% url 'charityhome' %}">
+    {% csrf_token %}
+    <button type="submit">Go Back</button>
+</form>
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+
+<style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 10px;
+    }
+    .order-box {
+        text-align: center;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 20px;
+        width: 300px;
+    }
+</style>
+
+<body>
+{% if username %}
+    {% if my_orders %}
+      {% for order in my_orders %}
+          {% if order.display_status %}
+              <div class="order-box">
+                  <p><strong>Restaurant Name:</strong> {{ order.organization_name }}</p>
+                  <p><strong>Restaurant Phone:</strong> {{ order.restaurant_phone }}</p>
+                  <p><strong>Restaurant Address:</strong> {{ order.restaurant_address }}</p>
+                  <p><strong>Name of food:</strong> {{ order.name_of_food }}</p>
+                  <p><strong>Food Cuisine:</strong> {{ order.food_cuisine }}</p>
+                  <p><strong>Quantity Serves:</strong> {{ order.quantity_serves }}</p>
+                  <p><strong>Packing Present:</strong> {{ order.packing_present }}</p>
+                  <p><strong>Time of Preparation:</strong> {{ order.time_of_preparation }}</p>
+                  <p><strong>Collected Time:</strong> {{ order.collected_time }}</p>
+              </div>
+          {% endif %}
+      {% endfor %}
+    {% else %}
+      <p>No orders in history</p>
+    {% endif %}
+{% else %}
+    <h2>You do not have an account registered with us!</h2>
+    <p><a href="{% url 'register' %}">Register here</a></p>
+{% endif %}
+</body>

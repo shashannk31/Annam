@@ -1,0 +1,120 @@
+<form method="post" action="{% url 'restauranthome' %}">
+    {% csrf_token %}
+    <button type="submit">Go Back</button>
+</form>
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+        }
+        .order-box {
+            position: relative;
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            width: 300px;
+            height: 80px;
+        }
+        .timestamp {
+            position: absolute;
+            bottom: -10px;
+            right: 5px;
+            color: #000000;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .custom-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+
+{% if username %}
+    {% if my_inbox %}
+        {% for message in my_inbox %}
+            {% if message.restaurant_inbox %}
+                <div class="order-box">
+                    <p><strong>{{ message.charity_name }} has ordered {{ message.name_of_food }}!</strong></p>
+                    {% if message.restaurant_order_status == "Accepted" %}
+                        You have accepted the order!
+                    {% endif %}
+                    {% if message.restaurant_order_status == "Rejected" %}
+                        You have rejected the order!
+                    {% endif %}
+                    <p class="timestamp">{{ message.order_timestamp|date:"F j, Y H:i" }}</p>
+                    {% if message.accept_reject_status %}
+                        <p id="orderQuestion">What do you wish to do with the Order</p>
+                        <form id="orderForm" action="{% url 'acceptrejectorder' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ message.id }}">
+                            <input type="hidden" name="response" id="responseInput" value="">
+                            <button type="button" onclick="handleOrder('accept')">Accept Order</button>
+                            <button type="button" onclick="handleOrder('reject')">Reject Order</button>
+                        </form>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>You have no messages in your inbox!</p>
+    {% endif %}
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        function handleOrder(action) {
+            // Disable buttons to prevent multiple clicks
+            $('#orderForm button').prop('disabled', true);
+            $('#responseInput').val(action);
+            $('#orderForm').submit();
+            // Show pop-up
+            var popupMessage = action === 'accept' ? 'Order Accepted Successfully' : 'Order Rejected Successfully';
+            var popup = $('<div class="popup">' + popupMessage + '</div>');
+            $('body').append(popup);
+
+            // After 5 seconds, remove pop-up and hide question and buttons
+            setTimeout(function () {
+                popup.remove();
+                $('#orderQuestion, #orderForm').hide();
+            }, 3000);
+        }
+    </script>
+{% else %}
+    <h2>You do not have an account registered with us!</h2>
+    <p><a href="{% url 'register' %}">Register here</a></p>
+{% endif %}
+
+</body>
+</html>

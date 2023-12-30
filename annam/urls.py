@@ -32,11 +32,16 @@ urlpatterns = [
     path('restaurant/home/', views.restauranthome, name="restauranthome"),
     path('restaurant/donate/', views.donate, name="donate"),
     path('restaurant/donatefood/', views.donatefood, name="donatefood"),
+    path('restaurant/mycontributions/', views.restaurantmycontributions, name="restaurantmycontributions"),
+    path('restaurant/myinbox/', views.restaurantmyinbox, name="restaurantmyinbox"),
+    path('restaurant/acceptrejectorder/', views.acceptrejectorder, name="acceptrejectorder"),
 
     #charity
     path('charity/home/', views.charityhome, name="charityhome"),
     path('charity/order/', views.order, name="order"),
     path('charity/orderfood/', views.orderfood, name="orderfood"),
+    path('charity/myorders/', views.charitymyorders, name="charitymyorders"),
+    path('charity/myinbox/', views.charitymyinbox, name="charitymyinbox"),
 ]
 
 if settings.DEBUG:

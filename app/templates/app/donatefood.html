@@ -49,9 +49,8 @@
 </head>
 
 <body>
-
+{% if username %}
     <h2>Food Provider Details</h2>
-
     <form action="{% url 'donatefood' %}" method="post" id="foodProviderForm">
         {% csrf_token %}
         <label for="time_of_preparation">Time of Preparation:</label>
@@ -89,11 +88,10 @@
           <p>{{ message }}</p>
         {% endfor %}
     {% endif %}
-
-    <script>
-        // You can add JavaScript for form validation or any additional functionality here.
-    </script>
-
+{% else %}
+    <h2>You do not have an account registered with us!</h2>
+    <p><a href="{% url 'register' %}">Register here</a></p>
+{% endif %}
 </body>
 
 </html>

@@ -19,6 +19,8 @@
         {% csrf_token %}
         <button type="submit">Logout</button>
     </form>
+    <a href="{% url 'restaurantmycontributions' %}">My Contributions</a>
+    <a href="{% url 'restaurantmyinbox' %}">My Inbox</a>
 {% else %}
     <h2>You do not have an account registered with us!</h2>
     <p><a href="{% url 'register' %}">Register here</a></p>

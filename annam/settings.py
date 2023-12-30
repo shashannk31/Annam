@@ -111,7 +111,7 @@ AUTHENTICATION_BACKENDS = ['app.auth_backends.CustomUserBackend','django.contrib
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 

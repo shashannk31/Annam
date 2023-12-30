@@ -111,6 +111,7 @@
     </style>
 </head>
 <body>
+{% if username %}
     <h2>Live Food Items</h2>
     {% if messages %}
         {% for message in messages %}
@@ -159,7 +160,7 @@
                <button type="submit" class="order-button">Order Food</button>
            </div>
          </form>
-         
+
       {% endfor %}
     {% else %}
       <div>No food items currently available! Kindly check later</div>
@@ -202,16 +203,11 @@
                 }
             });
         }
-
-        function confirmOrder(foodItemId) {
-            // Show a confirmation dialog
-            var result = confirm("Are you sure you want to order this food item?");
-            if (result) {
-                // If the user clicks 'Yes', submit the form
-                document.getElementById('order-form-' + foodItemId).submit();
-            }
-        }
     </script>
+{% else %}
+    <h2>You do not have an account registered with us!</h2>
+    <p><a href="{% url 'register' %}">Register here</a></p>
+{% endif %}
 
 </body>
 </html>
