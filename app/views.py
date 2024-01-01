@@ -59,7 +59,7 @@ def signin(request):
                 elif request.session.get('organization_type') == "Old Age Home" or request.session.get('organization_type') == "Orphanage":
                     return redirect('charityhome')
             else:
-                messages.error(request, 'Invalid email or password. Please try again.')
+                messages.error(request, 'Invalid credentials. Please try again!')
     return render(request, 'app/signin.html', {'form': form})
 
 def logoutview(request):
