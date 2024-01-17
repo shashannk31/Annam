@@ -1,7 +1,211 @@
-<h2>Register</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Register</button>
-</form>
-<p>Already have an account? <a href="{% url 'signin' %}">Sign in</a></p>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 60px 0 0;
+      padding: 0;
+      background-image: url("{% static 'app/loginbg-1.jpg' %}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0);
+      color: #fff;
+      padding: 2px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    header img {
+      margin: 0;
+      width: 240px;
+      height: auto;
+    }
+
+    form {
+      background-color: #fff;
+      opacity: 0.85;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 450px;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    h2 {
+      opacity: 1;
+      color: #000000;
+      font-size: 30;
+    }
+  
+    .p1 {
+      display: block;
+      margin: 5px 0 5px;
+      color: #000000;
+      text-align: left;
+      opacity: 1;
+      font-weight: bold;
+    }
+
+    .p2 {
+      text-align: left;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      margin-right: 5px; 
+      margin-bottom: 0;
+      vertical-align: middle;
+    }
+
+    label {
+      display: inline-block;
+      vertical-align: middle;
+      margin-bottom: 10px;
+      font-weight: lighter;
+    }
+  
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      border: 1px solid #221f1f;
+      border-radius: 4px;
+      font-size: 14px;
+      opacity: 1;
+    }
+  
+    button {
+      background-color: hsl(122, 39%, 49%);
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      opacity: 1;
+    }
+  
+    button:hover {
+      background-color: #45a049;
+      opacity: 1;
+    }
+
+    a {
+      color: #000000;
+      opacity: 1;
+    }
+
+    .alr {
+      font-weight: 100;
+    }
+  
+    footer {
+        text-align: center;
+        padding: 10px 0;
+        background-color: rgba(0, 0, 0, 0.85);
+        color: #fff;
+        width: 100%;
+        letter-spacing: 0.5px;
+        margin-top: 20px;
+    }
+  </style>
+  
+</head>
+<body>
+  <header>
+    <img src="{% static 'app/Annam1.jpg' %}">
+  </header>
+
+  <form method="post">
+    {% csrf_token %}
+    <h2>Register</h2>
+
+    <p class="p1">E-mail</p>
+    {{ form.email }}
+    <br>
+
+    <p class="p1">Username</p>
+    {{ form.username }}
+    <br>
+
+    <p class="p1">Organization Type</p>
+    {{ form.organization_type }}
+    <br>
+
+    <p class="p1">Organization Name</p>
+    {{ form.organization_name }}
+    <br>
+
+    <p class="p1">Cuisine Type</p>
+    {% for choice in form.cuisine_type %}
+      <label>
+        {{ choice.tag }} {{ choice.choice_label }}
+      </label>
+    {% endfor %}
+    <br>
+
+    <p class="p1">Phone</p>
+    {{ form.phone }}
+    <br>
+
+    <p class="p1">City</p>
+    {{ form.city }}
+    <br>
+
+    <p class="p1">State</p>
+    {{ form.state }}
+    <br>
+
+    <p class="p1">Address</p>
+    {{ form.address }}
+    <br>
+
+    <p class="p1">Password</p>
+    {{ form.password1 }}
+    <br>
+
+    <p class="p1">Confirm Password</p>
+    {{ form.password2 }}
+    <br>
+
+    {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    <button type="submit">Register</button>
+    <p class="alr">Already have an account? <br><a href="{% url 'signin' %}">Sign in</a></p>
+  </form>
+
+  <footer>
+    <a href="https://shashannk.netlify.app/" class="no-underline" target="_blank">&copy; Shashannk S</a>
+  </footer>
+  
+</body>
+</html>
+
+
