@@ -531,11 +531,11 @@
           <i class='bx bx-x' ></i>
         </div>
         <ul class="links">
-          <li><a href="#">HOME</a></li>
-          <li><a href="#">ABOUT US</a></li>
-          <li><a href="#">CONTACT US</a></li>
+          <li><a href="#home">HOME</a></li>
+          <li><a href="#aboutus">ABOUT US</a></li>
+          <li><a href="#contactus">CONTACT US</a></li>
           <li>
-            <a href="#">PROFILE</a>
+            <a href="">PROFILE</a>
             <i class='bx bxs-chevron-down js-arrow arrow '></i>
             <ul class="js-sub-menu sub-menu">
               <li><a href="{% url 'restaurantmycontributions' %}">My Contributions</a></li>
@@ -548,7 +548,7 @@
     </div>
   </nav>
 
-  <div class="home">
+  <div class="home" id="home">
     <div class="welcomeuser">
       <h2>Welcome to the Restaurant Home Page</h2>
       <h3>Hello, {{ username }}!</h3>
@@ -592,14 +592,14 @@
     </div>
   </div>
 
-  <div class="aboutus">
+  <div class="aboutus" id="aboutus">
     <h1>About Annam</h1>
     <p>Annam is an initiative designed to bridge the gap between surplus food and those in need. In a world where food security remains a pressing concern, Annam stands as a ray of hope for the people who have had sleepless nights due to hunger. It serves as a benevolent mediator connecting restaurants with orphanages and old-age homes. With a mission to curb food wastage and foster community support, Annam empowers restaurant managers to effortlessly share details about the excess food they plan to discard. This user-friendly platform provides a space for restaurants to post surplus food information on days when generosity strikes, creating a direct channel for orphanages and old-age homes to access this invaluable resource. Annam operates on the principle of altruism, ensuring that the entire process is seamless and free of cost. By harnessing technology for the greater good, Annam envisions a world where surplus food finds its way to those who need it most. Annam is not just a web application; it's a movement, a digital platform dedicated to channel excess food from restaurants to orphanages and old-age homes.</p>
     <br>
     <p>Through Annam's intuitive interface, managers can input details about the quantity and type of excess food available on any given day. This information is then made accessible to orphanages and old-age homes actively seeking support. The direct line of communication established by Annam enables these institutions to connect directly with the concerned restaurant, streamlining the process of food distribution and ensuring that those who need it most receive the assistance in a timely and efficient manner. Operating on a zero-cost model, Annam emphasizes that its primary currency is kindness. The intent is clear – to reduce food wastage, alleviate hunger, and inspire a collective consciousness around resource sharing. Annam envisions a future where surplus food isn't discarded but becomes a lifeline for those facing food insecurity. Join Annam on this transformative journey, where each contribution, no matter how small, has the power to make a significant impact on the lives of those less fortunate. In embracing Annam, we embrace a future where no one goes to bed hungry, and compassion becomes the cornerstone of our communities.</p>
   </div>
 
-  <div class="container">
+  <div class="container" id="contactus">
     <div class="content">
       <div class="left-side">
         <div class="address details">
